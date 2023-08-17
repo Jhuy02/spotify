@@ -8,6 +8,16 @@ export interface Song {
   song_path: string;
   image_path: string;
 }
+export interface liked_songs {
+  user_id: string;
+  song_id: string;
+  songs: Song;
+}
+
+export interface Follow_users {
+  user_id: string;
+  following_id: string;
+}
 
 export interface Product {
   id: string;

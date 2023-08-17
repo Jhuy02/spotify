@@ -1,10 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
 import { toast } from "react-hot-toast";
 import { useSessionContext } from "@supabase/auth-helpers-react";
+import { Follow_users, UserDetails } from "@/types";
 
-const useGetUserFollow = async (id?: string) => {
-  const [followingById, setFollowingById] = useState<number>();
+const useGetUserFollowing = (id?: string) => {
   const { supabaseClient } = useSessionContext();
+  const [following, setFollowing] = useState<Follow_users[]>();
 
   useEffect(() => {
     if (!id) {
@@ -15,18 +16,18 @@ const useGetUserFollow = async (id?: string) => {
       const { data, error } = await supabaseClient
         .from("follow_users")
         .select("*")
-        .eq("following_id", id);
+        .eq("user_id", id)
+        .order("created_at", { ascending: false });
 
       if (error) {
         return toast.error(error.message);
       }
-      console.log(data.length);
-      setFollowingById(data.length);
+      setFollowing(data);
     };
 
     fetchSong();
   }, [id, supabaseClient]);
-  return followingById;
+  return following;
 };
 
-export default useGetUserFollow;
+export default useGetUserFollowing;

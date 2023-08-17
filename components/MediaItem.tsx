@@ -4,7 +4,6 @@ import Image from "next/image";
 
 import useLoadImage from "@/hooks/useLoadImage";
 import { Song } from "@/types";
-import LikeButton from "./LikeButton";
 
 interface MediaItemProps {
   data: Song;
@@ -29,7 +28,7 @@ const MediaItem: React.FC<MediaItemProps> = ({ data, onClick }) => {
         <Image
           fill
           src={imageUrl || "/images/music-placeholder.png"}
-          alt="MediaItem"
+          alt="image"
           className="object-cover"
         />
       </div>

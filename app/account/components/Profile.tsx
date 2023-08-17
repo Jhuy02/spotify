@@ -13,6 +13,7 @@ import { toast } from "react-hot-toast";
 import useUpdateUserModal from "@/hooks/useUpdateUserModal";
 import useAuthModal from "@/hooks/useAuthModal";
 
+export const revalidate = 0;
 interface ProfileProps {
   searchParams: string;
 }
@@ -90,7 +91,11 @@ const Profile: React.FC<ProfileProps> = ({ searchParams }) => {
         <p className="text-neutral-300 pt-5">
           {followingById
             ? `${followingById} Followers`
-            : "hãy là người theo dõi đầu tiên"}
+            : `${
+                searchParams === user?.id
+                  ? "Tiếp tục cố gắng"
+                  : "hãy là người theo dõi đầu tiên"
+              }`}
         </p>
       </div>
     </div>

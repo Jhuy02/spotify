@@ -2,6 +2,7 @@
 
 import { TbPlaylist } from "react-icons/tb";
 import { AiOutlinePlus } from "react-icons/ai";
+import Tippy from "@tippyjs/react";
 
 import useAuthModal from "@/hooks/useAuthModal";
 import { useUser } from "@/hooks/useUser";
@@ -36,11 +37,15 @@ const Library: React.FC<LibraryProps> = ({ songs }) => {
           <TbPlaylist className="text-neutral-400" size={26}></TbPlaylist>
           <p className="text-neutral-400 font-medium text-md">Your library</p>
         </div>
-        <AiOutlinePlus
-          onClick={onClick}
-          className="text-neutral-400 cursor-pointer hover:text-white transition"
-          size={20}
-        ></AiOutlinePlus>
+        <Tippy content="Add Song">
+          <button>
+            <AiOutlinePlus
+              onClick={onClick}
+              className="text-neutral-400 cursor-pointer hover:text-white transition"
+              size={20}
+            ></AiOutlinePlus>
+          </button>
+        </Tippy>
       </div>
       <div className="flex flex-col gap-y-2 mt-4 px-3">
         {songs

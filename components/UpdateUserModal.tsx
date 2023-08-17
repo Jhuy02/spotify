@@ -13,13 +13,15 @@ import { useRouter } from "next/navigation";
 import Modal from "./Modal";
 import Input from "./Input";
 import Button from "./Button";
+import useGetUserById from "@/hooks/useGetUserById";
 
-const UpdateImageModal = () => {
+const UpdateUserModal = () => {
   const [isLoading, setIsLoading] = useState(false);
   const uploadModal = useUpdateUserModal();
   const { user } = useUser();
   const supabaseClient = useSupabaseClient();
   const router = useRouter();
+  const { userById } = useGetUserById(user?.id);
 
   const { register, handleSubmit, reset } = useForm<FieldValues>({
     defaultValues: {
@@ -45,6 +47,15 @@ const UpdateImageModal = () => {
       if (!user) {
         toast.error("missing fileds");
         return;
+      }
+
+      if (imageFile) {
+        const { error: errorStorageImage } = await supabaseClient.storage
+          .from("images")
+          .remove([userById?.avatar_url!]);
+        if (errorStorageImage) {
+          return toast.error(errorStorageImage.message);
+        }
       }
 
       if (imageFile && !values.full_name) {
@@ -113,6 +124,7 @@ const UpdateImageModal = () => {
           return toast.error(supabaseError.message);
         }
       }
+
       router.refresh();
       setIsLoading(false);
       toast.success("created");
@@ -157,4 +169,4 @@ const UpdateImageModal = () => {
   );
 };
 
-export default UpdateImageModal;
+export default UpdateUserModal;

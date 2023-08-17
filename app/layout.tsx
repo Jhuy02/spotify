@@ -1,5 +1,6 @@
 import "./globals.css";
 import { Figtree } from "next/font/google";
+import "tippy.js/dist/tippy.css";
 
 import Sidebar from "@/components/Sidebar";
 import SupabaseProvider from "@/providers/SupabaseProvider";

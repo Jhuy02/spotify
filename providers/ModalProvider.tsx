@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 
 import AuthModal from "@/components/AuthModal";
 import UploadModal from "@/components/UploadModal";
-import UpdateImageModal from "@/components/UpdateImageModal";
+import UpdateUserModal from "@/components/UpdateUserModal";
+import UpdateSongModal from "@/components/UpdateSongModal";
 
 const ModalProvider = () => {
   const [isMounted, setIsMounted] = useState(false);
@@ -21,7 +22,8 @@ const ModalProvider = () => {
     <>
       <AuthModal></AuthModal>
       <UploadModal></UploadModal>
-      <UpdateImageModal></UpdateImageModal>
+      <UpdateUserModal></UpdateUserModal>
+      <UpdateSongModal></UpdateSongModal>
     </>
   );
 };

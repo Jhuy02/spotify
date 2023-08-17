@@ -2,23 +2,23 @@
 
 import useLoadImage from "@/hooks/useLoadImage";
 import qs from "query-string";
-import { Song } from "@/types";
+import { liked_songs } from "@/types";
 
 import Image from "next/image";
 
-import PlayButton from "./PlayButton";
 import { useRouter } from "next/navigation";
+import PlayButton from "@/components/PlayButton";
 
 interface SongItemProps {
-  data: Song;
+  data: liked_songs;
   onClick: (id: string) => void;
 }
 
-const SongItem: React.FC<SongItemProps> = ({ data, onClick }) => {
-  const imagePath = useLoadImage(data);
+const HotsItems: React.FC<SongItemProps> = ({ data, onClick }) => {
+  const imagePath = useLoadImage(data.songs);
   const router = useRouter();
   const query = {
-    id: data?.user_id,
+    id: data?.songs.user_id,
   };
 
   const url = qs.stringifyUrl({
@@ -40,21 +40,21 @@ const SongItem: React.FC<SongItemProps> = ({ data, onClick }) => {
         />
       </div>
       <div className="flex flex-col items-start w-full pt-4 gap-y-1">
-        <p className="font-semibold w-full truncate">{data.title}</p>
+        <p className="font-semibold w-full truncate">{data.songs.title}</p>
         <p className="text-neutral-400 text-sm pb-4 w-full truncate">
-          By: {data.author}
+          By: {data.songs.author}
         </p>
       </div>
       <div
         onClick={() => {
-          onClick(data.id);
+          onClick(data.songs.id);
         }}
         className="absolute bottom-24 right-5"
       >
-        <PlayButton idActive={data.id} />
+        <PlayButton idActive={data.songs.id} />
       </div>
     </div>
   );
 };
 
-export default SongItem;
+export default HotsItems;

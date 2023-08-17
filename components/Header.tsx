@@ -9,11 +9,15 @@ import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { FaUserAlt } from "react-icons/fa";
 import { toast } from "react-hot-toast";
 import qs from "query-string";
+import Tippy from "@tippyjs/react";
 
 import useAuthModal from "@/hooks/useAuthModal";
 import { useUser } from "@/hooks/useUser";
 
 import Button from "./Button";
+import useGetUserById from "@/hooks/useGetUserById";
+import useLoadImageUser from "@/hooks/useLoadImageUser";
+import Image from "next/image";
 
 interface HeaderProps {
   children: React.ReactNode;
@@ -25,7 +29,8 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
   const AuthModal = useAuthModal();
   const supabaseClient = useSupabaseClient();
   const { user } = useUser();
-
+  const { userById } = useGetUserById(user?.id);
+  const imagePath = useLoadImageUser(userById!);
   const query = {
     id: user?.id,
   };
@@ -55,21 +60,23 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
       )}
     >
       <div className="fixed z-50 p-[22px] translate-x-[-26px] top-0 webkit-fill-available w-full flex items-center justify-between mb-4">
-        <div className="absolute top-0 left-0 w-[106%] h-24 bg-neutral-400 opacity-40 border-lg"></div>
-
         <div className="z-50 hidden md:flex gap-x-2 items-center">
-          <button
-            onClick={() => router.back()}
-            className="rounded-full bg-black flex  items-center justify-center hover:opacity-75 transition"
-          >
-            <RxCaretLeft className="text-white" size={35} />
-          </button>
-          <button
-            onClick={() => router.forward()}
-            className="rounded-full bg-black flex  items-center justify-center hover:opacity-75 transition"
-          >
-            <RxCaretRight className="text-white" size={35} />
-          </button>
+          <Tippy content="back">
+            <button
+              onClick={() => router.back()}
+              className="rounded-full bg-black flex  items-center justify-center hover:opacity-75 transition"
+            >
+              <RxCaretLeft className="text-white" size={35} />
+            </button>
+          </Tippy>
+          <Tippy content="forward">
+            <button
+              onClick={() => router.forward()}
+              className="rounded-full bg-black flex  items-center justify-center hover:opacity-75 transition"
+            >
+              <RxCaretRight className="text-white" size={35} />
+            </button>
+          </Tippy>
         </div>
         <div className="flex z-50 md:hidden gap-x-2 items-center">
           <button className="rounded-full p-2 bg-white flex items-center justify-center hover:opacity-75 transition">
@@ -85,9 +92,23 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
               <Button onClick={handleLogout} className="bg-white px-6 py-2">
                 Logout
               </Button>
-              <Button onClick={() => router.push(url)} className="bg-white">
-                <FaUserAlt />
-              </Button>
+              <Tippy content={user.email}>
+                <Button
+                  onClick={() => router.push(url)}
+                  className="bg-white relative w-[40px] h-[40px]"
+                >
+                  {userById?.avatar_url ? (
+                    <Image
+                      className="object-cover rounded-full"
+                      fill
+                      src={imagePath || ""}
+                      alt="image"
+                    />
+                  ) : (
+                    <FaUserAlt />
+                  )}
+                </Button>
+              </Tippy>
             </div>
           ) : (
             <>

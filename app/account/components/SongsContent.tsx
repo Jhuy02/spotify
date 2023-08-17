@@ -4,19 +4,18 @@ import useGetSongByUserId from "@/hooks/useGetSongByUserId";
 import useOnPlay from "@/hooks/useOnPlay";
 import MediaItemAccount from "./MediaItemAccount";
 
-interface SearchContentProps {
+export const revalidate = 0;
+interface SongsContentProps {
   userId: string;
 }
 
-const AccountContent: React.FC<SearchContentProps> = ({ userId }) => {
+const SongsContent: React.FC<SongsContentProps> = ({ userId }) => {
   const songs = useGetSongByUserId(userId);
   const onPlay = useOnPlay(songs!);
 
   if (songs?.length === 0) {
     return (
-      <div className="flex flex-col gap-y-2 w-full bg-neutral-400 px-6">
-        No songs
-      </div>
+      <div className="flex flex-col gap-y-2 w-full h-[50vh] px-6">No songs</div>
     );
   }
   return (
@@ -38,4 +37,4 @@ const AccountContent: React.FC<SearchContentProps> = ({ userId }) => {
   );
 };
 
-export default AccountContent;
+export default SongsContent;
