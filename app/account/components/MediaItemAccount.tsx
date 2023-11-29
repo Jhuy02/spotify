@@ -14,6 +14,8 @@ import useToggle from "@/hooks/useToggle";
 import ModulePost from "./ModulePost";
 import { useUser } from "@/hooks/useUser";
 
+export const revalidate = 0;
+
 interface MediaItemAccountProps {
   data: Song;
   onClick?: (id: string) => void;

@@ -15,7 +15,7 @@ const SongsContent: React.FC<SongsContentProps> = ({ userId }) => {
 
   if (songs?.length === 0) {
     return (
-      <div className="flex flex-col gap-y-2 w-full h-[50vh] px-6">No songs</div>
+      <div className="flex flex-col gap-y-2 w-full h-[20vh] px-6">No songs</div>
     );
   }
   return (
