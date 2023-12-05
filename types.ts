@@ -9,8 +9,18 @@ export interface Song {
   image_path: string;
 }
 export interface liked_songs {
+  songs: any;
+  song_id: any;
+  id_song: string;
+  id_user: string;
+  Content: Text;
+  user: UserDetails;
+}
+
+export interface Cmt_Songs {
   user_id: string;
   song_id: string;
+  Content: string;
   songs: Song;
 }
 

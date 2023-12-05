@@ -12,7 +12,7 @@ const PageContentHots: React.FC<PageContentProps> = ({ data }) => {
   const countMap: { [songId: string]: { count: number; item: liked_songs } } =
     {};
   data?.forEach((item) => {
-    const songId = item.song_id;
+    const songId = item?.song_id;
     if (!countMap[songId]) {
       countMap[songId] = { count: 0, item: item };
     }
@@ -39,7 +39,7 @@ const PageContentHots: React.FC<PageContentProps> = ({ data }) => {
     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-4 mt-4">
       {top.map((item) => (
         <HotsItems
-          key={item.song_id}
+          key={item?.song_id}
           onClick={(id: string) => {
             onPlay(id);
           }}

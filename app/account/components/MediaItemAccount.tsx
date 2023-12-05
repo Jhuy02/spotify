@@ -83,7 +83,7 @@ const MediaItemAccount: React.FC<MediaItemAccountProps> = ({
           <p className="text-white px-2 mx-5">{liked === 0 ? "" : liked}</p>
           <LikeButton songId={data?.id}></LikeButton>
         </div>
-        {user?.id === data.id && (
+        {user?.id === data.user_id && (
           <TippyHeader
             placement="top-start"
             interactive

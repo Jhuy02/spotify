@@ -9,10 +9,15 @@ import Slider from "./Slider";
 import { useEffect, useState } from "react";
 import { BsPauseFill, BsPlayFill } from "react-icons/bs";
 import { AiFillStepBackward, AiFillStepForward } from "react-icons/ai";
+import qs from "query-string";
+import { RxExternalLink } from "react-icons/rx";
 import { HiSpeakerWave, HiSpeakerXMark } from "react-icons/hi2";
 import useSound from "use-sound";
 
 import usePlayer from "@/hooks/usePlayer";
+import { useRouter } from "next/navigation";
+
+export const revalidate = 0;
 
 interface PlayerContentProps {
   song: Song;
@@ -21,10 +26,20 @@ interface PlayerContentProps {
 
 const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
   const player = usePlayer();
+  const router = useRouter();
   const [volume, setVolume] = useState(1);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [songDuration, setSongDuration] = useState(0);
+
+  const query = {
+    id: song.id,
+  };
+
+  const url = qs.stringifyUrl({
+    url: "/viewsong",
+    query,
+  });
 
   const Icon = isPlaying ? BsPauseFill : BsPlayFill;
   const VolumeIcon = volume === 0 ? HiSpeakerXMark : HiSpeakerWave;
@@ -109,6 +124,9 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
         <div className="flex gap-x-4 items-center">
           <MediaItem data={song}></MediaItem>
           <LikeButton songId={song.id}></LikeButton>
+          <button onClick={() => router.push(url)} className="hover:opacity-75">
+            <RxExternalLink size={25} />
+          </button>
         </div>
       </div>
       <div className="flex  md:hidden col-auto w-full justify-end items-center">

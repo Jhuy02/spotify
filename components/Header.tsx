@@ -20,7 +20,7 @@ import useLoadImageUser from "@/hooks/useLoadImageUser";
 import Image from "next/image";
 
 interface HeaderProps {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   className?: string;
 }
 

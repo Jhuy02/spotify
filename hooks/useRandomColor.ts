@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 
 const useRandomColor = () => {
-  const [randomColor, setRandomColor] = useState<string>("#FFFFFF"); // Màu mặc định
+  const [randomColor, setRandomColor] = useState<string>("#000000"); // Màu mặc định
 
   useEffect(() => {
     const generateRandomColor = () => {

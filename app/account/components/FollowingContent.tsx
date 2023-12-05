@@ -10,7 +10,6 @@ interface FollowingContentProps {
 
 const FollowingContent: React.FC<FollowingContentProps> = ({ userId }) => {
   const following = useGetUserFollowing(userId);
-  console.log(following);
   if (following?.length! === 0) {
     return (
       <div className="flex flex-col gap-y-2 w-full h-[20vh] px-6">No songs</div>

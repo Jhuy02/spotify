@@ -13,7 +13,6 @@ import Library from "./Library";
 import { Song } from "@/types";
 import usePlayer from "@/hooks/usePlayer";
 import useRandomColor from "@/hooks/useRandomColor";
-import { useUser } from "@/hooks/useUser";
 
 export const revalidate = 0;
 interface SidebarProps {
@@ -72,7 +71,7 @@ const Sidebar: React.FC<SidebarProps> = ({ children, songs }) => {
     <div
       className={twMerge(
         `flex h-full`,
-        player.activeId && "h-[calc(100%-80px)]"
+        player.activeId && "h-[calc(100%-120px)]"
       )}
     >
       <div className="hidden md:flex flex-col gap-y-2 bg-black h-full p-2 pb-0 w-[300px]">

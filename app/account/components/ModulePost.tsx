@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import React from "react";
 import { toast } from "react-hot-toast";
 
+export const revalidate = 0;
 interface ModulePostProps {
   data: Song;
   toggle: () => void;
@@ -49,8 +50,8 @@ const ModulePost: React.FC<ModulePostProps> = ({ data, toggle }) => {
     if (errorStorageImage) {
       return toast.error(errorStorageImage.message);
     }
-    router.refresh();
     toast.success("created");
+    router.refresh();
   };
 
   return (
